@@ -6,7 +6,7 @@
 /*   By: bberkass <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/06 21:53:28 by bberkass          #+#    #+#             */
-/*   Updated: 2021/12/09 01:21:52 by bberkass         ###   ########.fr       */
+/*   Updated: 2021/12/09 15:08:15 by bberkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	check_bit(char c, int shift)
 	return (k);
 }
 
-int	send_s(char *message, pid_t pid)
+void send_s(char *message, pid_t pid)
 {
 	int i;
 	int sh;
@@ -53,24 +53,11 @@ int main(int argc, char **argv)
 	pid_t	pid;
 	char	*s;
 	
-	//pid = getpid();
 	if(argc > 2)
 	{
 		pid = atoi(argv[1]);
 		s = argv[2];
-		//printf("PID => %d \n", atoi(argv[1]) + 1);
-		//printf("MSG => %s \n", argv[2]);
-		//kill(pid, SIGUSR1);
-		//kill(pid, SIGUSR2);
 		send_s(s, pid);
-		/*
-		while(1)
-		{
-			
-			printf("CLIENT PID => %d \n", pid);
-			sleep(1);
-		}
-		*/
 	}
 	else {
 		printf("not enough arguments !\n");
