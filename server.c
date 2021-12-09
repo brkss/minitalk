@@ -6,18 +6,19 @@
 /*   By: bberkass <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/09 01:53:23 by bberkass          #+#    #+#             */
-/*   Updated: 2021/12/09 03:06:28 by bberkass         ###   ########.fr       */
+/*   Updated: 2021/12/09 03:12:40 by bberkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./includes/minitalk.h"
-
+/*
 typedef struct ch_s {
 	int c;
 	int shft;
 } ch_t;
 
 ch_t *gv;
+*/
 
 int c = 0b00000000;
 int shft = 0;
@@ -34,37 +35,39 @@ void	handl(int s)
 	if(s == SIGUSR1)
 	{
 		// 0
-		gv->c = gv->c | 0;
+		c = c | 0;
 	}
 	else if(s == SIGUSR2)
 	{
 		// 1
-		gv->c = gv->c | 1;
+		c = c | 1;
 	}
 	else {
-		printf("unknown signal ! \n");
+		//printf("unknown signal ! \n");
 	}
-	if(gv->shft < 7)
-		gv->c = gv->c << 1;
-	gv->shft++;
-	if(gv->shft == 8)
+	if(shft < 7)
+		c = c << 1;
+	shft++;
+	if(shft == 8)
 	{
-		gv->c = reverse(gv->c);
-		printf("%c", (char)(gv->c));
-		gv->c = 0b00000000;
-		gv->shft = 0;
+		c = reverse(c);
+		char t = (char) c;
+		write(1, &t, 1);
+		//printf("%c", (char)(c));
+		c = 0b00000000;
+		shft = 0;
 	}
 	//gv->shft = gv->shft + 1 - 1;
-	//printf("%d \n", gv->shft);
+	//printf("%d \n", shft);
 }
 
 int main()
 {
-	
+/*	
 	gv = (ch_t *)malloc(sizeof(ch_t));
 	gv->c = 0b00000000;
 	gv->shft = 0;
-
+*/
 	pid_t pid;
 	signal(SIGUSR1, handl);
 	signal(SIGUSR2, handl);
