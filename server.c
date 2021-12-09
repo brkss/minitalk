@@ -6,16 +6,11 @@
 /*   By: bberkass <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/09 01:53:23 by bberkass          #+#    #+#             */
-/*   Updated: 2021/12/09 21:58:32 by bberkass         ###   ########.fr       */
+/*   Updated: 2021/12/09 22:25:01 by bberkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./includes/minitalk.h"
-
-typedef struct ch_s {
-	int c;
-	int shft;
-} ch_t;
 
 ch_t *gv;
 
