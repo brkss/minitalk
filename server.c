@@ -6,17 +6,13 @@
 /*   By: bberkass <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/09 01:53:23 by bberkass          #+#    #+#             */
-/*   Updated: 2021/12/09 22:25:01 by bberkass         ###   ########.fr       */
+/*   Updated: 2021/12/11 22:56:10 by bberkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./includes/minitalk.h"
 
 ch_t *gv;
-
-
-//int c = 0b00000000;
-//int shft = 0;
 
 int reverse(int b) {
    b = (b & 0b11110000) >> 4 | (b & 0b00001111) << 4;
@@ -29,12 +25,12 @@ void	handl(int s)
 {
 	char	t;
 
-	if(s == SIGUSR1)
+	if (s == SIGUSR1)
 	{
 		// 0
 		gv->c = gv->c | 0;
 	}
-	else if(s == SIGUSR2)
+	else if (s == SIGUSR2)
 	{
 		// 1
 		gv->c = gv->c | 1;
@@ -42,10 +38,10 @@ void	handl(int s)
 	else {
 		//printf("unknown signal ! \n");
 	}
-	if(gv->shft < 7)
+	if (gv->shft < 7)
 		gv->c = gv->c << 1;
 	gv->shft++;
-	if(gv->shft == 8)
+	if (gv->shft == 8)
 	{
 		gv->c = reverse(gv->c);
 		t = (char)(gv->c);

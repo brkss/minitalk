@@ -1,49 +1,48 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   client.c                                           :+:      :+:    :+:   */
+/*   client_re.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bberkass <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/06 21:53:28 by bberkass          #+#    #+#             */
-/*   Updated: 2021/12/11 22:52:07 by bberkass         ###   ########.fr       */
+/*   Created: 2021/12/11 19:46:49 by bberkass          #+#    #+#             */
+/*   Updated: 2021/12/11 22:07:45 by bberkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// SIGUSR1 -> 0
-// SIGUSR2 -> 1
+#include "../includes/minitalk.h"
 
-#include "./includes/minitalk.h"
+void	atob(char c, pid_t pid){
+	int	b;
+	int	t;
 
-int	check_bit(char c, int shift)
-{
-	int b = 0b00000001 << shift;
-	int k = b & c;
-	return (k);
+	b = (int)c;
+	while(b > 0)
+	{
+		if(b % 2 == 0)
+		{
+			kill(pid, SIGUSR1);
+			write(1, "0", 1);
+		}
+		else if (b % 2 == 1)
+		{
+			kill(pid, SIGUSR2);
+			write(1, "1", 1);
+		}
+		b = b / 2;
+		usleep(100);
+	}
+	//kill(pid, SIGUSR1);
 }
 
-void send_s(char *message, pid_t pid)
+void	send(char *s, pid_t pid)
 {
-	int i;
-	int sh;
+	int	i;
 
 	i = 0;
-	while(message[i])
+	while(s[i])
 	{
-		sh = 0;
-		while (sh < 8)
-		{
-			if (check_bit(message[i], sh) >> sh == 1)
-			{
-				printf("Bit [%d] is %d \n", sh, 1);
-				kill(pid, SIGUSR2);
-			} else {
-				printf("Bit [%d] is %d \n", sh, 0);
-				kill(pid, SIGUSR1);
-			} 
-			usleep(100);			
-			sh++;	
-		}
+		atob(s[i], pid);
 		i++;
 	}
 }
@@ -52,15 +51,17 @@ int main(int argc, char **argv)
 {
 	pid_t	pid;
 	char	*s;
-	
 	if(argc > 2)
 	{
 		pid = atoi(argv[1]);
+		printf("pid : %d \n", pid);
 		s = argv[2];
-		send_s(s, pid);
+		send(s, pid);
 	}
-	else {
-		printf("not enough arguments !\n");
+	else
+	{
+		write(1, "invalid arguments", 17);
+		//atob('a');
 	}
 	return (0);
 }
