@@ -6,7 +6,7 @@
 /*   By: bberkass <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/06 21:53:28 by bberkass          #+#    #+#             */
-/*   Updated: 2021/12/11 22:52:07 by bberkass         ###   ########.fr       */
+/*   Updated: 2021/12/12 19:48:00 by bberkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 
 int	check_bit(char c, int shift)
 {
-	int b = 0b00000001 << shift;
+	int b = 0b10000000 >> shift;
 	int k = b & c;
 	return (k);
 }
@@ -33,7 +33,7 @@ void send_s(char *message, pid_t pid)
 		sh = 0;
 		while (sh < 8)
 		{
-			if (check_bit(message[i], sh) >> sh == 1)
+			if (check_bit(message[i], sh) != 0)
 			{
 				printf("Bit [%d] is %d \n", sh, 1);
 				kill(pid, SIGUSR2);

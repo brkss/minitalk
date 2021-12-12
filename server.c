@@ -6,7 +6,7 @@
 /*   By: bberkass <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/09 01:53:23 by bberkass          #+#    #+#             */
-/*   Updated: 2021/12/11 22:56:10 by bberkass         ###   ########.fr       */
+/*   Updated: 2021/12/12 19:41:24 by bberkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	handl(int s)
 	gv->shft++;
 	if (gv->shft == 8)
 	{
-		gv->c = reverse(gv->c);
+		//gv->c = reverse(gv->c);
 		t = (char)(gv->c);
 		write(1, &t, 1);
 		gv->c = 0b00000000;
