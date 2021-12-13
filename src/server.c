@@ -6,13 +6,13 @@
 /*   By: bberkass <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/09 01:53:23 by bberkass          #+#    #+#             */
-/*   Updated: 2021/12/13 01:00:50 by bberkass         ###   ########.fr       */
+/*   Updated: 2021/12/13 01:52:17 by bberkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minitalk.h"
 
-ch_t	*g_si;
+t_ch	*g_si;
 
 void	handl(int s)
 {
@@ -38,7 +38,7 @@ void	handl(int s)
 
 void	init_si(void)
 {
-	g_si = (ch_t *)malloc(sizeof(ch_t));
+	g_si = (t_ch *)malloc(sizeof(t_ch));
 	g_si->c = 0b00000000;
 	g_si->shft = 0;
 }
@@ -62,7 +62,7 @@ int	main(void)
 	init_si();
 	signal(SIGUSR1, NULL);
 	signal(SIGUSR2, NULL);
-	sa.sa_flags = SA_NODEFER;
+	sa.sa_flags = 0;
 	sa.sa_sigaction = get_pid;
 	sigaction(SIGUSR1, &sa, NULL);
 	sigaction(SIGUSR2, &sa, NULL);

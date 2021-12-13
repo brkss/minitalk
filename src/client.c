@@ -6,12 +6,14 @@
 /*   By: bberkass <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/06 21:53:28 by bberkass          #+#    #+#             */
-/*   Updated: 2021/12/13 01:01:17 by bberkass         ###   ########.fr       */
+/*   Updated: 2021/12/13 01:16:08 by bberkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// SIGUSR1 -> 0
-// SIGUSR2 -> 1
+/*
+	SIGUSR1 -> 0
+	SIGUSR2 -> 1
+*/
 
 #include "../includes/minitalk.h"
 
