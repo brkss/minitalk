@@ -6,60 +6,67 @@
 /*   By: bberkass <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/06 21:53:28 by bberkass          #+#    #+#             */
-/*   Updated: 2021/12/12 19:48:00 by bberkass         ###   ########.fr       */
+/*   Updated: 2021/12/13 01:01:17 by bberkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 // SIGUSR1 -> 0
 // SIGUSR2 -> 1
 
-#include "./includes/minitalk.h"
+#include "../includes/minitalk.h"
 
 int	check_bit(char c, int shift)
 {
-	int b = 0b10000000 >> shift;
-	int k = b & c;
+	int	b;
+	int	k;
+
+	b = 0b10000000 >> shift;
+	k = b & c;
 	return (k);
 }
 
-void send_s(char *message, pid_t pid)
+void	send_s(char *message, pid_t pid)
 {
-	int i;
-	int sh;
+	int	i;
+	int	sh;
 
 	i = 0;
-	while(message[i])
+	while (message[i])
 	{
 		sh = 0;
 		while (sh < 8)
 		{
 			if (check_bit(message[i], sh) != 0)
-			{
-				printf("Bit [%d] is %d \n", sh, 1);
 				kill(pid, SIGUSR2);
-			} else {
-				printf("Bit [%d] is %d \n", sh, 0);
+			else
 				kill(pid, SIGUSR1);
-			} 
-			usleep(100);			
-			sh++;	
+			usleep(100);
+			sh++;
 		}
 		i++;
 	}
 }
 
-int main(int argc, char **argv)
+void	conf(int sig)
+{
+	(void)sig;
+	write(1, "signal received !\n", 18);
+}
+
+int	main(int argc, char **argv)
 {
 	pid_t	pid;
 	char	*s;
-	
-	if(argc > 2)
+
+	signal(SIGUSR1, conf);
+	if (argc > 2)
 	{
-		pid = atoi(argv[1]);
+		pid = ft_atoi(argv[1]);
 		s = argv[2];
 		send_s(s, pid);
 	}
-	else {
+	else
+	{
 		printf("not enough arguments !\n");
 	}
 	return (0);
