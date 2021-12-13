@@ -6,7 +6,7 @@
 /*   By: bberkass <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/06 21:53:28 by bberkass          #+#    #+#             */
-/*   Updated: 2021/12/13 22:52:11 by bberkass         ###   ########.fr       */
+/*   Updated: 2021/12/13 22:59:11 by bberkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	send_s(char *message, pid_t pid)
 				kill(pid, SIGUSR2);
 			else
 				kill(pid, SIGUSR1);
-			usleep(200);
+			usleep(100);
 			sh++;
 		}
 		i++;
@@ -60,10 +60,14 @@ int	main(int argc, char **argv)
 	pid_t	pid;
 	char	*s;
 
-	signal(SIGUSR1, conf);
 	if (argc > 2)
 	{
 		pid = ft_atoi(argv[1]);
+		if (pid <= 0)
+		{
+			ft_putstr("invalid PID ! \n");
+			exit(1);
+		}
 		s = argv[2];
 		send_s(s, pid);
 	}
@@ -71,7 +75,5 @@ int	main(int argc, char **argv)
 	{
 		ft_putstr("not enough arguments !\n");
 	}
-	while (1)
-		sleep(1);
 	return (0);
 }

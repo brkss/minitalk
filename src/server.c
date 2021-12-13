@@ -6,7 +6,7 @@
 /*   By: bberkass <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/09 01:53:23 by bberkass          #+#    #+#             */
-/*   Updated: 2021/12/13 01:52:17 by bberkass         ###   ########.fr       */
+/*   Updated: 2021/12/13 22:56:55 by bberkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,29 +43,13 @@ void	init_si(void)
 	g_si->shft = 0;
 }
 
-void	get_pid(int sig, siginfo_t *info, void *context)
-{
-	pid_t	pid;
-
-	(void) context;
-	(void) sig;
-	pid = info->si_pid;
-	handl(sig);
-	kill(pid, SIGUSR1);
-}
-
 int	main(void)
 {
 	pid_t				pid;
-	struct sigaction	sa;	
 
 	init_si();
-	signal(SIGUSR1, NULL);
-	signal(SIGUSR2, NULL);
-	sa.sa_flags = 0;
-	sa.sa_sigaction = get_pid;
-	sigaction(SIGUSR1, &sa, NULL);
-	sigaction(SIGUSR2, &sa, NULL);
+	signal(SIGUSR1, handl);
+	signal(SIGUSR2, handl);
 	pid = getpid();
 	ft_putstr("PID => ");
 	ft_putnbr(pid);
