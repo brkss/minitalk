@@ -6,7 +6,7 @@
 /*   By: bberkass <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/06 21:53:28 by bberkass          #+#    #+#             */
-/*   Updated: 2021/12/13 01:16:08 by bberkass         ###   ########.fr       */
+/*   Updated: 2021/12/13 22:52:11 by bberkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	send_s(char *message, pid_t pid)
 				kill(pid, SIGUSR2);
 			else
 				kill(pid, SIGUSR1);
-			usleep(100);
+			usleep(200);
 			sh++;
 		}
 		i++;
@@ -69,7 +69,9 @@ int	main(int argc, char **argv)
 	}
 	else
 	{
-		printf("not enough arguments !\n");
+		ft_putstr("not enough arguments !\n");
 	}
+	while (1)
+		sleep(1);
 	return (0);
 }
